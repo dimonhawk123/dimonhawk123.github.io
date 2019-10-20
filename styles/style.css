@@ -1,0 +1,73 @@
+* { 
+    box-sizing: border-box;
+    margin: 0;
+}
+body {
+    background-color: #fff;
+    margin: 0;
+    font-size: 18px;
+    height: 100vh;
+}
+.wrap {
+    max-width: 1024px;
+    width: 100%;
+    padding: 0 20px 20px 20px;
+    margin: 0 auto;
+}
+.header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+.profile_info {
+    padding-left: 20px;
+}
+.profile_info div {
+    margin-bottom: 15px;
+}
+.title {
+    margin-bottom: 7px;
+}
+table {    
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid black;
+}
+td {
+    padding: 10px;
+    text-align: center;
+}
+tr td:first-child {
+    text-align: left;
+}
+.contact_info { 
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-between;
+}
+.phone, .name {    
+    flex-grow: 1;    
+}
+.phone {
+    padding-right: 20px;
+}
+p {
+    margin-bottom: 7px;
+}
+input {
+    padding: 2px 5px;
+    width: 100%;
+}
+.click_title {
+    margin-bottom: 10px;
+    text-align: center;
+}
+.text_button {
+    display: inline-block;
+}
+#invisible_text {
+    display: none;
+}
