@@ -11,6 +11,7 @@ body {
 .wrap {
     max-width: 1024px;
     width: 100%;
+    min-height: 100vh;
     height: 100%;
     padding: 20px;
     margin: 0 auto;
