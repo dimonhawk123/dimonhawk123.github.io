@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8" />    
+    <title>Task34</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            min-height: 100vh;  
+            margin: 0px;
+        }
+        .wrap {
+            width: 100%;
+            max-width: 1024px;
+            padding: 10px;
+            font-size: 18px;
+        }
+        #content {
+            border: 2px solid red;
+            min-height: 20px;
+            padding: 10px;            
+        }
+        #title_name {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        #content, #title_name, .title_link {
+            margin-bottom: 8px;
+        }
+        img {
+            max-width: 90%;
+        }
+        #but {
+            display: inline-block;
+        }
+        button {
+            font-size: 14px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class = "wrap">
+        <div id="title_name"></div>
+        <div id="content"></div>
+        <div class = "title_link">
+            Ссылка на статью: <a id="title_link"></a>
+        </div>
+        <div id = "but">
+            <button id="prev">Предыдущая статья</button>
+            <button id="next">Следующая статья</button>
+        </div>
+    </div>
+
+    <script>        
+        //получаем доступ к необходимым частям страницы 
+        let name = document.getElementById('title_name');
+        let link = document.getElementById('title_link');
+        let text = document.getElementById('content');   
+
+        //объявляем переменную для подсчёта статей                
+        let num_title = 0;
+
+        //создаём XMLHttpRequest
+        let xhr = new XMLHttpRequest();
+        let xhr2 = new XMLHttpRequest();
+        
+        //инициализируем запросы
+        xhr.open('GET', 'http://lazyprog.ru/cc640/l3/json.php');
+        xhr2.open('GET', 'http://lazyprog.ru/cc640/l3/json.php?action=getDescriptions');
+
+        //указываем json в качестве ожидаемого типа ответа
+        xhr.responseType = 'json';
+        xhr2.responseType = 'json';
+
+        //отправляем запросы
+        xhr.send();
+        xhr2.send();        
+        
+        //получение ответа
+        xhr.onload = function() {
+            //проверка наличия ошибок 
+            if(xhr.status != 200) {
+                alert('Ошибка: ' + xhr.status);
+            }
+            //отображаем информацию о первой статье
+            name.innerHTML = xhr.response[0].title;
+            link.href = xhr.response[0].url;
+            link.innerHTML = xhr.response[0].url;            
+        }
+
+        xhr2.onload = function() {
+            if(xhr2.status != 200) {
+                alert('Ошибка: ' + xhr2.status);
+            }
+            text.innerHTML = xhr2.response[0];           
+        }
+        
+        but.onclick = function(event) {       
+            //проверка какая именно кнопка была нажата (вперёд или назад)     
+            if (event.target.id == 'prev') {
+                num_title--;
+            }
+            if (event.target.id == 'next') {
+                num_title++;
+            }
+            //условия для цикличного перебора статей
+            if(num_title < 0) {
+                num_title = (xhr.response.length - 1);
+            }
+            if(num_title == xhr.response.length) {
+                num_title = 0;
+            }
+            //отображение нужной статьи 
+            name.innerHTML = xhr.response[num_title].title;
+            link.href = xhr.response[num_title].url;
+            link.innerHTML = xhr.response[num_title].url;            
+            text.innerHTML = xhr2.response[num_title];
+        }
+    </script>
+</body>
